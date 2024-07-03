@@ -21,7 +21,7 @@ const generateTodo = (data) => {
   const todo = new Todo(data, '#todo-template')
   const todoElement = todo.getView()
 
-
+  return todoElement;
   // const todoElement = todoTemplate.content
   //   .querySelector(".todo")
   //   .cloneNode(true);
@@ -54,7 +54,7 @@ const generateTodo = (data) => {
   //   todoElement.remove();
   // });
 
-  return todoElement;
+
 };
 
 addTodoButton.addEventListener("click", () => {
