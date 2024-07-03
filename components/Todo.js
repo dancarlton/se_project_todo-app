@@ -2,8 +2,8 @@ class Todo {
   constructor(data, selector) {
     this._data = data
     this._templateElement = document.querySelector(selector)
+    // this._uniqueID = uuidv4()
 
-    console.log(data)
   }
 
   _setEventListeners() {
