@@ -2,8 +2,8 @@ class Todo {
   constructor(data, selector) {
     this._data = data
     this._templateElement = document.querySelector(selector)
-    // this._uniqueID = uuidv4()
 
+    console.log(data)
   }
 
   _setEventListeners() {
@@ -24,19 +24,18 @@ class Todo {
     this._todoLabel.setAttribute('for', `todo-${this._data.id}`)
   }
 
-//   getDate() {
-//     this._dueDate = new Date(this._data.date)
-//     if (!isNaN(this._dueDate)) {
-//       this._todoDate.textContent = `Due: ${this._dueDate.toLocaleString(
-//         'en-US',
-//         {
-//           year: 'numeric',
-//           month: 'short',
-//           day: 'numeric',
-//         }
-//       )}`
-//     }
-//   }
+  _setDueDate() {
+    if (this._data.date) {
+      const dueDate = new Date(this._data.date);
+      if (!isNaN(dueDate)) {
+        this._todoDate.textContent = `Due: ${dueDate.toLocaleString('en-US', {
+          year: 'numeric',
+          month: 'short',
+          day: 'numeric',
+        })}`;
+      }
+    }
+  }
 
   getView() {
     this._todoElement = this._templateElement.content
@@ -51,6 +50,7 @@ class Todo {
 
     this._generateCheckbox()
     this._setEventListeners()
+    this._setDueDate()
 
     return this._todoElement
   }

@@ -2,6 +2,7 @@ import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
 
 import { initialTodos, validationConfig } from '../utils/constants.js'
 import Todo from '../components/Todo.js'
+import FormValidator from '../components/FormValidator.js'
 
 const addTodoButton = document.querySelector('.button_action_add')
 const addTodoPopup = document.querySelector('#add-todo-popup')
@@ -17,21 +18,9 @@ const closeModal = modal => {
   modal.classList.remove('popup_visible')
 }
 
-// The logic in this function should all be handled in the Todo class.
 const generateTodo = data => {
   const todo = new Todo(data, '#todo-template')
   const todoElement = todo.getView()
-
-  // If a due date has been set, parsing this it with `new Date` will return a
-  // number. If so, we display a string version of the due date in the todo.
-  // const dueDate = new Date(data.date)
-  // if (!isNaN(dueDate)) {
-  //   todoDate.textContent = `Due: ${dueDate.toLocaleString('en-US', {
-  //     year: 'numeric',
-  //     month: 'short',
-  //     day: 'numeric',
-  //   })}`
-  // }
 
   return todoElement
 }
@@ -51,7 +40,6 @@ addTodoForm.addEventListener('submit', evt => {
   const name = evt.target.name.value
   const dateInput = evt.target.date.value
 
-  // Create a date object and adjust for timezone
   const date = new Date(dateInput)
   date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
 
@@ -65,3 +53,6 @@ initialTodos.forEach(item => {
   const todo = generateTodo(item)
   todosList.append(todo)
 })
+
+const newTodoValidator = new FormValidator(validationConfig, addTodoForm)
+newTodoValidator.enableValidation()
