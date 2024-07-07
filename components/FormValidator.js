@@ -46,7 +46,7 @@ class FormValidator {
 
   _hasInvalidInput() {
     return this._inputList.some(inputElement => {
-      !inputElement.validity.valid
+      return !inputElement.validity.valid
     })
   }
 
@@ -60,7 +60,6 @@ class FormValidator {
   }
 
   enableValidation() {
-    this._formElement = document.querySelector(this._settings.formSelector)
     this._formElement.addEventListener('submit', evt => {
       evt.preventDefault()
     })
