@@ -1,9 +1,7 @@
-class Todo {
+export default class Todo {
   constructor(data, selector) {
     this._data = data
     this._templateElement = document.querySelector(selector)
-
-    console.log(data)
   }
 
   _setEventListeners() {
@@ -55,5 +53,3 @@ class Todo {
     return this._todoElement
   }
 }
-
-export default Todo
