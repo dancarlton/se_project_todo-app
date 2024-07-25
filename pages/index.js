@@ -4,6 +4,8 @@ import { initialTodos, validationConfig } from '../utils/constants.js'
 import Todo from '../components/Todo.js'
 import FormValidator from '../components/FormValidator.js'
 import Section from '../scripts/Section.js'
+import Popup from '../components/Popup.js'
+import PopupWithForm from '../components/PopupWithForm.js'
 
 const addTodoButton = document.querySelector('.button_action_add')
 const addTodoPopup = document.querySelector('#add-todo-popup')
@@ -20,14 +22,7 @@ const section = new Section({
   containerSelector: '.todos__list',
 })
 
-
-const openModal = modal => {
-  modal.classList.add('popup_visible')
-}
-
-const closeModal = modal => {
-  modal.classList.remove('popup_visible')
-}
+const popupWithForm = new PopupWithForm('#add-todo-popup', () => {})
 
 const generateTodo = data => {
   const todo = new Todo(data, '#todo-template')
@@ -37,11 +32,11 @@ const generateTodo = data => {
 }
 
 addTodoButton.addEventListener('click', () => {
-  openModal(addTodoPopup)
+  popupWithForm.open()
 })
 
 addTodoCloseBtn.addEventListener('click', () => {
-  closeModal(addTodoPopup)
+  popupWithForm.close()
 })
 
 addTodoForm.addEventListener('submit', evt => {
@@ -63,6 +58,5 @@ addTodoForm.addEventListener('submit', evt => {
 
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm)
 newTodoValidator.enableValidation()
-
 
 section.renderItems()
