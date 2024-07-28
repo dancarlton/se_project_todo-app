@@ -6,6 +6,7 @@ import FormValidator from '../components/FormValidator.js'
 import Section from '../scripts/Section.js'
 import Popup from '../components/Popup.js'
 import PopupWithForm from '../components/PopupWithForm.js'
+import TodoCounter from '../components/TodoCounter.js'
 
 const addTodoButton = document.querySelector('.button_action_add')
 const addTodoPopup = document.querySelector('#add-todo-popup')
@@ -13,22 +14,23 @@ const addTodoForm = addTodoPopup.querySelector('.popup__form')
 const addTodoCloseBtn = addTodoPopup.querySelector('.popup__close')
 const todosList = document.querySelector('.todos__list')
 
+const todoCounter = new TodoCounter(initialTodos, '.counter')
+
 const section = new Section({
   items: initialTodos,
   renderer: item => {
-    const todo = generateTodo(item)
-    section.addItem(todo)
+    generateTodo(item)
   },
   containerSelector: '.todos__list',
 })
 
-const popupWithForm = new PopupWithForm('#add-todo-popup', () => {})
-
 const generateTodo = data => {
+  // debugger
   const todo = new Todo(data, '#todo-template')
   const todoElement = todo.getView()
 
-  return todoElement
+  section.addItem(todoElement)
+  newTodoValidator.resetValidation()
 }
 
 addTodoButton.addEventListener('click', () => {
@@ -39,24 +41,10 @@ addTodoCloseBtn.addEventListener('click', () => {
   popupWithForm.close()
 })
 
-addTodoForm.addEventListener('submit', evt => {
-  evt.preventDefault()
-
-  const id = uuidv4()
-  const name = evt.target.name.value
-  const dateInput = evt.target.date.value
-
-  const date = new Date(dateInput)
-  date.setMinutes(date.getMinutes() + date.getTimezoneOffset())
-
-  const values = { id, name, date }
-  const todo = generateTodo(values)
-  todosList.append(todo)
-  closeModal(addTodoPopup)
-  newTodoValidator.resetValidation()
-})
-
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm)
 newTodoValidator.enableValidation()
+
+const popupWithForm = new PopupWithForm('#add-todo-popup', generateTodo)
+popupWithForm.setEventListeners()
 
 section.renderItems()
