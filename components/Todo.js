@@ -1,8 +1,9 @@
 export default class Todo {
-  constructor(data, selector, handleCheckboxClick) {
+  constructor(data, selector, handleCheckboxClick, handleDeleteClick) {
     this._data = data
     this._templateElement = document.querySelector(selector)
     this._handleCheckboxClick = handleCheckboxClick
+    this._handleDeleteClick = handleDeleteClick
     this._setInitialCompletedState()
   }
 
@@ -22,6 +23,7 @@ export default class Todo {
 
     this._todoDeleteBtn.addEventListener('click', () => {
       this._todoElement.remove()
+      this._handleDeleteClick()
     })
   }
 
