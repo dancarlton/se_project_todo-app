@@ -1,12 +1,23 @@
 export default class Todo {
-  constructor(data, selector) {
+  constructor(data, selector, handleCheckboxClick) {
     this._data = data
     this._templateElement = document.querySelector(selector)
+    this._handleCheckboxClick = handleCheckboxClick
+    this._setInitialCompletedState()
+  }
+
+  _setInitialCompletedState () {
+    if (this._data.completed) {
+      return
+    } else {
+      this._data.completed = false
+    }
   }
 
   _setEventListeners() {
     this._todoCheckboxEl.addEventListener('change', () => {
       this._data.completed = !this._data.completed
+      this._handleCheckboxClick(this._data.completed)
     })
 
     this._todoDeleteBtn.addEventListener('click', () => {
