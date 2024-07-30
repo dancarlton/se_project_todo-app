@@ -16,10 +16,14 @@ addTodoButton.addEventListener('click', () => {
   popupWithForm.open()
 })
 
-
 const generateTodo = data => {
   // debugger
-  const todo = new Todo(data, '#todo-template', updateTodoCounter, deleteTodoInCounter)
+  const todo = new Todo(
+    data,
+    '#todo-template',
+    updateTodoCounter,
+    deleteTodoInCounter
+  )
   const todoElement = todo.getView()
 
   todoCounter.updateTotal(true)
@@ -29,15 +33,13 @@ const generateTodo = data => {
 }
 
 function updateTodoCounter(checked) {
-    todoCounter.updateCompleted(checked)
+  todoCounter.updateCompleted(checked)
 }
 
 function deleteTodoInCounter() {
   todoCounter.updateCompleted(false)
   todoCounter.updateTotal(false)
 }
-
-
 
 const todoCounter = new TodoCounter(initialTodos, '.counter')
 

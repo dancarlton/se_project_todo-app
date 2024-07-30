@@ -7,7 +7,7 @@ export default class Todo {
     this._setInitialCompletedState()
   }
 
-  _setInitialCompletedState () {
+  _setInitialCompletedState() {
     if (this._data.completed) {
       return
     } else {
@@ -37,13 +37,13 @@ export default class Todo {
 
   _setDueDate() {
     if (this._data.date) {
-      const dueDate = new Date(this._data.date);
+      const dueDate = new Date(this._data.date)
       if (!isNaN(dueDate)) {
         this._todoDate.textContent = `Due: ${dueDate.toLocaleString('en-US', {
           year: 'numeric',
           month: 'short',
           day: 'numeric',
-        })}`;
+        })}`
       }
     }
   }
