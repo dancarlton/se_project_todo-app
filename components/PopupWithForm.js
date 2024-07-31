@@ -17,7 +17,6 @@ class PopupWithForm extends Popup {
       inputValues[input.name] = input.value
     })
     return inputValues
-    console.log(inputValues)
   }
 
   setEventListeners() {

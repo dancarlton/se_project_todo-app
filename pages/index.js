@@ -1,5 +1,3 @@
-import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
-
 import { initialTodos, validationConfig } from '../utils/constants.js'
 import Todo from '../components/Todo.js'
 import FormValidator from '../components/FormValidator.js'
@@ -10,14 +8,17 @@ import TodoCounter from '../components/TodoCounter.js'
 const addTodoButton = document.querySelector('.button_action_add')
 const addTodoPopup = document.querySelector('#add-todo-popup')
 const addTodoForm = addTodoPopup.querySelector('.popup__form')
-const addTodoCloseBtn = addTodoPopup.querySelector('.popup__close')
 
 addTodoButton.addEventListener('click', () => {
   popupWithForm.open()
 })
 
-const generateTodo = data => {
-  // debugger
+function handleAddTodoFormSubmit(inputValues) {
+  generateTodo(inputValues)
+  newTodoValidator.resetValidation()
+}
+
+function generateTodo(data) {
   const todo = new Todo(
     data,
     '#todo-template',
@@ -29,7 +30,6 @@ const generateTodo = data => {
   todoCounter.updateTotal(true)
 
   section.addItem(todoElement)
-  newTodoValidator.resetValidation()
 }
 
 function updateTodoCounter(checked) {
@@ -54,7 +54,10 @@ const section = new Section({
 const newTodoValidator = new FormValidator(validationConfig, addTodoForm)
 newTodoValidator.enableValidation()
 
-const popupWithForm = new PopupWithForm('#add-todo-popup', generateTodo)
+const popupWithForm = new PopupWithForm(
+  '#add-todo-popup',
+  handleAddTodoFormSubmit
+)
 popupWithForm.setEventListeners()
 
 section.renderItems()
