@@ -12,10 +12,9 @@ class TodoCounter {
   updateCompleted = increment => {
     if (increment) {
       this._completed += 1
-    } else if (this._completed > 0) {
+    } else {
       this._completed -= 1
     }
-
     this._updateText()
   }
 

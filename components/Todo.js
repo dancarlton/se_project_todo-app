@@ -23,7 +23,7 @@ export default class Todo {
 
     this._todoDeleteBtn.addEventListener('click', () => {
       this._todoElement.remove()
-      this._handleDeleteClick()
+      this._handleDeleteClick(this._todoCheckboxEl.checked)
     })
   }
 

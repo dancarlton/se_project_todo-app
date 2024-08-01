@@ -36,9 +36,13 @@ function updateTodoCounter(checked) {
   todoCounter.updateCompleted(checked)
 }
 
-function deleteTodoInCounter() {
-  todoCounter.updateCompleted(false)
-  todoCounter.updateTotal(false)
+function deleteTodoInCounter(checked) {
+  if (checked) {
+    todoCounter.updateCompleted(false)
+    todoCounter.updateTotal(false)
+  } else {
+    todoCounter.updateTotal(false)
+  }
 }
 
 const todoCounter = new TodoCounter(initialTodos, '.counter')
