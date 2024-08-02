@@ -1,3 +1,5 @@
+import { v4 as uuidv4 } from 'https://jspm.dev/uuid'
+
 import { initialTodos, validationConfig } from '../utils/constants.js'
 import Todo from '../components/Todo.js'
 import FormValidator from '../components/FormValidator.js'
@@ -14,7 +16,11 @@ addTodoButton.addEventListener('click', () => {
 })
 
 function handleAddTodoFormSubmit(inputValues) {
-  generateTodo(inputValues)
+  const id = uuidv4()
+
+  const newTodoData = {id, ...inputValues}
+
+  generateTodo(newTodoData)
   newTodoValidator.resetValidation()
 }
 
@@ -42,6 +48,7 @@ function deleteTodoInCounter(checked) {
     todoCounter.updateTotal(false)
   } else {
     todoCounter.updateTotal(false)
+
   }
 }
 
